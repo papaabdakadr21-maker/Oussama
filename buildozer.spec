@@ -19,26 +19,19 @@ source.exts = py,png,jpg,kv,atlas
 version = 0.1
 
 # (list) Application requirements
-# Note: requirements should not contain spaces after commas
 requirements = python3,kivy
 
 # (str) Supported orientations
 orientation = portrait
 
-# (list) List of permissions
-#android.permissions = INTERNET,BLUETOOTH,BLUETOOTH_ADMIN,ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION
-
 # (int) Target Android API, should be as high as possible.
-#android.api = 33
+android.api = 33
 
 # (int) Minimum API your APK will support.
-#android.minapi = 21
+android.minapi = 21
 
 # (str) Android NDK version to use
-#android.ndk = 25b
-
-# (bool) Use --private data storage (True) or --dir storage (False)
-#android.private_storage = True
+android.ndk = 25b
 
 # (str) The Android arch to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
 android.archs = arm64-v8a, armeabi-v7a
