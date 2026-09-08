@@ -15,15 +15,17 @@ source.dir = .
 # (list) Source files to include (let it empty to include all files)
 source.include_exts = py,png,jpg,kv,atlas
 
+# (str) Application versioning
+version = 0.1
+
 # (list) Application requirements
-# comma separated e.g. requirements = sqlite3,kivy
 requirements = python3,kivy,bleak
 
 # (str) Supported orientations
 orientation = portrait
 
 # (list) Permissions
-android.permissions = BLUETOOTH,BLUETOOTH_ADMIN,BLUETOOTH_SCAN,BLUETOOTH_CONNECT,ACCESS_FINE_LOCATION
+android.permissions = BLUETOOTH,BLUENV,BLUETOOTH_ADMIN,BLUETOOTH_SCAN,BLUETOOTH_CONNECT,ACCESS_FINE_LOCATION
 
 [buildozer]
 
