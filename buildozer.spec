@@ -1,45 +1,40 @@
-[app]
+name: CI
 
-# (str) Title of your application
-title = Bluetooth Finder
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-# (str) Package name
-package.name = bluetoothfinder
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-# (str) Package domain (needed for android packaging)
-package.domain = org.test
+    steps:
+    - uses: actions/checkout@v4
 
-# (str) Source files where the let of data is (relative to directory of this file)
-source.dir = .
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
 
-# (list) Source files to include (let it empty to include all files)
-source.exts = py,png,jpg,kv,atlas
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo6 cmake libffi-dev libssl-dev
+        pip install --upgrade pip
+        pip install cython==0.29.33 buildozer
 
-# (list) Application version
-version = 0.1
+    - name: Accept Android SDK licenses explicitly
+      run: |
+        mkdir -p /home/runner/.android
+        # إنشاء ملفات التراخيص يدويًا لتجاوز أي توقف إجباري
+        sdkmanager --version
+        yes | sdkmanager --licenses || true
+        # قبول تراخيص إضافية إن وجدت
+        export ANDROID_HOME=/usr/local/lib/android/sdk
+        yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
-# (list) Application requirements
-requirements = python3,kivy
-
-# (str) Supported orientations
-orientation = portrait
-
-# (int) Target Android API, should be as high as possible.
-android.api = 33
-
-# (int) Minimum API your APK will support.
-android.minapi = 21
-
-# (str) Android NDK version to use
-android.ndk = 25b
-
-# (str) The Android arch to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
-android.archs = arm64-v8a, armeabi-v7a
-
-[buildozer]
-
-# (int) Log level (0 = error only, 1 = info, 2 = debug (with command output))
-log_level = 2
-
-# (int) Display warning if buildozer is run as root (0 = False, 1 = True)
-warn_on_root = 1
+    - name: Build with Buildozer
+      run: |
+        buildozer -v android debug
