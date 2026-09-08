@@ -25,7 +25,10 @@ requirements = python3,kivy,bleak
 orientation = portrait
 
 # (list) Permissions
-android.permissions = BLUETOOTH,BLUENV,BLUETOOTH_ADMIN,BLUETOOTH_SCAN,BLUETOOTH_CONNECT,ACCESS_FINE_LOCATION
+android.permissions = BLUETOOTH,BLUETOOTH_ADMIN,BLUETOOTH_SCAN,BLUETOOTH_CONNECT,ACCESS_FINE_LOCATION
+
+# (int) Automatically accept Android SDK licenses
+android.accept_sdk_license = True
 
 [buildozer]
 
